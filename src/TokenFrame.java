@@ -26,14 +26,18 @@ public class TokenFrame
 	public void set_data(String input){this.data=input;}
 	
 	public void set_frame_status() {
-		Random rand = new Random();
+		//set random frame status to drop packets
+		/*Random rand = new Random();
 		rand.nextInt(2);
 		if (rand.nextInt() == 0){
 			frame_status = 0;
 		}
 		else if (rand.nextInt() == 1){
 			frame_status = 1;
-		}
+		}*/
+		
+		//set frame to always good
+		frame_status = 1;
 	}
 
 	public void set_data_size()

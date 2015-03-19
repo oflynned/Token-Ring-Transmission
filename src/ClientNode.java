@@ -27,8 +27,6 @@ public class ClientNode extends Thread
 	//string to build the output-file-{num} name
 	private String f_output; 
 	
-	private Random randomNode = new Random();
-	
 	//read in files
 	private BufferedReader infile_read;
 	
@@ -49,7 +47,7 @@ public class ClientNode extends Thread
 		
 		f_input = GlobalDataStore.infile_name + this.this_node_num.toString();	
 		f_output = GlobalDataStore.outfile_name + this.this_node_num.toString();
-
+		
 		//build transmit socket for node
 		try 
 		{
@@ -68,7 +66,7 @@ public class ClientNode extends Thread
 		}
 		
 		//generate frame
-		generate_frames(f_input, p_temp);
+		generate_frames(f_input);
 		
 		try
 		{
@@ -174,6 +172,7 @@ public class ClientNode extends Thread
 					//process if we're the recipient
 					{
 						//determine if frame is good or bad with status
+						System.out.println("\nframe status being set\n");
 						frame.set_frame_status();
 						
 						//drop if there's corruption
@@ -182,6 +181,7 @@ public class ClientNode extends Thread
 						else
 						{
 							//keep if it's good
+							System.out.println("saving frame to output");
 							save_frame_to_output(node_name, frame);
 						}
 					}
@@ -210,7 +210,7 @@ public class ClientNode extends Thread
 						}
 						else {
 							//pass if the source if not us
-							System.out.println("pass sauce pls");
+							System.out.println("\npassing the frame\n");
 							send_frame(node_name, frame);
 						}
 					}
@@ -310,9 +310,9 @@ public class ClientNode extends Thread
 	{
 		//set access control to 0 as we pass to neighbour
 		frame.set_access_control(0);
-
+		
 		//log
-		frame.set_data("Pass Token");
+		System.out.println("passing token");
 
 		//size?
 		frame.set_data_size();
@@ -377,12 +377,8 @@ public class ClientNode extends Thread
 	}
 
 	//generate frame
-	void generate_frames(String str, int count) throws IOException
+	void generate_frames(String str) throws IOException
 	{
-		//if we're not the last frame to be created, we call ourself
-		if (count >= 0) {
-			generate_frames(str, count-1);
-		}
 		//create frame
 		TokenFrame frame = new TokenFrame(node_name);
 		
@@ -390,6 +386,7 @@ public class ClientNode extends Thread
 		
 		//send frame to random node
 		Integer dest = rand.nextInt(5)+1;
+		//Integer dest = 5;
 
 		//set string
 		frame.set_data(

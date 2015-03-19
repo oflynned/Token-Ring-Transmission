@@ -7,9 +7,6 @@ import java.util.Random;
 
 public class ClientNode extends Thread 
 {
-	//initialiser
-	TokenRing tokenRing = new TokenRing();
-	
 	//listening socket
 	private ServerSocket recv_socket; 
 	//declare socket for frame sending
@@ -33,6 +30,11 @@ public class ClientNode extends Thread
 	//node constructor
 	ClientNode(ServerSocket s_temp, int p_temp, boolean flag) throws IOException
 	{
+		//initialiser for GUI console parsing
+		TokenRing tokenRing = new TokenRing();
+		
+		tokenRing.model.addElement("test");
+		
 		// initialize client stuff
 		this.this_node_num = new Integer(s_temp.getLocalPort()-GlobalDataStore.netport_base);
 		this.node_name = new String("Node-");
@@ -133,7 +135,7 @@ public class ClientNode extends Thread
 			return;
 		}
 
-		System.out.println(node_name+": Starting Listening State...");
+		System.out.println(node_name+": Starting listening state...");
 		Socket conn = null;
 		String data = null;
 		Random rand = new Random();
@@ -195,11 +197,13 @@ public class ClientNode extends Thread
 								System.out.println(node_name+": listen: draining frame");
 							else 
 							{
-								/* if the frame status is 0, then we have an
-								 * orphaned frame; right now we ignore this
-								 * case
+								/* 
+								 * if the frame status is 0, then we have an
+								 * orphaned frame; ignore this frame and reset
+								 * if this state is true.
 								 */
-								System.out.println(node_name+": orphaned frame");
+								System.out.println("");
+								System.out.println(node_name+": orphaned frame!\n");
 								
 								if (this.flag)
 								{
@@ -236,7 +240,7 @@ public class ClientNode extends Thread
 	{
 		//switch to listen state if we get out of transmission state
 		if (!this.flag){
-			System.out.println(node_name+": We Don't have the Token!");
+			System.out.println(node_name+": We don't have the token!");
 			listen_state(node_name);
 			return;
 		}
@@ -287,9 +291,10 @@ public class ClientNode extends Thread
     void send_frame(String node_name, TokenFrame frame)
 	{
     	//check if we're passing the token to the next node
-		if (frame.access_control().equals(0))
+		if (frame.access_control().equals(0)){
 			//set flag to 0
 			this.flag = false;
+		}
 		
 		System.out.println(node_name+": send: trying to send frame");
 		try
@@ -312,7 +317,7 @@ public class ClientNode extends Thread
 		frame.set_access_control(0);
 		
 		//log
-		System.out.println("passing token");
+		System.out.println("\npassing token\n");
 
 		//size?
 		frame.set_data_size();
@@ -326,6 +331,7 @@ public class ClientNode extends Thread
 		System.out.println(node_name+": saving frame to output");
 		try
 		{
+			
 			//open buffer for printing frame to output file
 			PrintWriter outfile = new PrintWriter(new FileWriter("f_output.txt", true));
 			
@@ -337,7 +343,7 @@ public class ClientNode extends Thread
 		}
 		catch (IOException io)
 		{
-			System.err.println("save frame to file: outfile, IO error, Writes");
+			System.err.println("save frame to file: IO error");
 		}
 		System.out.println(node_name+": saved frame to output");
 	}
@@ -379,13 +385,28 @@ public class ClientNode extends Thread
 	//generate frame
 	void generate_frames(String str) throws IOException
 	{
+
 		//create frame
 		TokenFrame frame = new TokenFrame(node_name);
 		
 		Random rand = new Random();
 		
+		frame.set_data("");
+
+		PrintWriter infile_clear = new PrintWriter(new FileWriter("f_input.txt", false));
+		
 		//send frame to random node
+		boolean redo = false;
 		Integer dest = rand.nextInt(5)+1;
+		if(dest==1){
+			redo = true;
+		}
+		while(dest == 1){
+			dest = rand.nextInt(5)+1;
+			if(dest!=1){
+				redo = false;
+			}
+		}
 		//Integer dest = 5;
 
 		//set string
@@ -408,7 +429,7 @@ public class ClientNode extends Thread
 		frame.set_src(this.this_node_num);
 
 		//save each frame to file
-		PrintWriter infile_write = new PrintWriter(new FileWriter("f_input.txt", true));
+		PrintWriter infile_write = new PrintWriter(new FileWriter("f_input.txt", false));
 		infile_write.println(frame.print()); 
 		infile_write.close(); 
 	}

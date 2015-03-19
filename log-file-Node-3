@@ -1,136 +1,19 @@
-0,12,5,1,input-file-1
-0,12,5,1,input-file-1,0
-0,12,4,1,input-file-1
-0,12,4,1,input-file-1,0
-0,12,2,1,input-file-1
-0,12,2,1,input-file-1,0,
-0,12,5,1,input-file-1
-0,12,5,1,input-file-1,0,
-0,12,2,1,input-file-1
-0,12,2,1,input-file-1,0,
-0,12,3,1,input-file-1
-0,12,3,1,input-file-1,0,
-0,12,2,1,input-file-1
-0,12,2,1,input-file-1,0,
-0,12,2,1,input-file-1
-0,12,2,1,input-file-1,0,
-0,12,3,1,input-file-1
-0,12,3,1,input-file-1,0,
-1,12,3,1,input-file-1
-0,12,2,1,input-file-1
-0,12,2,1,input-file-1,0
-0,12,3,1,input-file-1
-0,12,3,1,input-file-1,0
-0,12,5,1,input-file-1
-0,12,5,1,input-file-1,0
-0,12,3,1,input-file-1
-0,12,3,1,input-file-1,0
-0,12,3,1,input-file-1
-0,12,3,1,input-file-1,0
-0,12,4,1,input-file-1
-0,12,4,1,input-file-1,0
-0,12,3,1,input-file-1
-0,12,3,1,input-file-1,0
-0,12,4,1,input-file-1
-0,12,4,1,input-file-1,0
-0,12,5,1,input-file-1
-0,12,5,1,input-file-1,0
-0,12,3,1,input-file-1
-0,12,3,1,input-file-1,0
-0,12,3,1,input-file-1
-0,12,3,1,input-file-1,0
-0,12,3,1,input-file-1
-0,12,3,1,input-file-1,0
-0,12,4,1,input-file-1
-0,12,4,1,input-file-1,0
-0,12,4,1,input-file-1
-0,12,4,1,input-file-1,0
-0,12,3,1,input-file-1
-0,12,3,1,input-file-1,0
-0,12,5,1,input-file-1
-0,12,5,1,input-file-1,0
-0,12,3,1,input-file-1
-0,12,3,1,input-file-1,0
-0,12,5,1,input-file-1
-0,12,5,1,input-file-1,0
-0,12,2,1,input-file-1
-0,12,2,1,input-file-1,0
-0,12,3,1,input-file-1
-0,12,3,1,input-file-1,0
-0,12,5,1,input-file-1
-0,12,5,1,input-file-1,0
-0,12,3,1,input-file-1
-0,12,3,1,input-file-1,0
-0,12,4,1,input-file-1
-0,12,4,1,input-file-1,0
-0,12,4,1,input-file-1
-0,12,4,1,input-file-1,0
-0,12,3,1,input-file-1
-0,12,3,1,input-file-1,0
-0,12,4,1,input-file-1
-0,12,4,1,input-file-1,0
-0,12,5,1,input-file-1
-0,12,5,1,input-file-1,0
-0,12,4,1,input-file-1
-0,12,4,1,input-file-1,0
-0,12,2,1,input-file-1
-0,12,2,1,input-file-1,0
-0,12,2,1,input-file-1
-0,12,2,1,input-file-1,0
-0,12,4,1,input-file-1
-0,12,4,1,input-file-1,0
-1,12,2,1,input-file-1
-1,12,3,1,input-file-1
-1,12,2,1,input-file-1
-0,12,4,1,input-file-1
-0,12,4,1,input-file-1,1
-0,12,5,1,input-file-1
-0,12,5,1,input-file-1,1
-0,12,5,1,input-file-1
-0,12,5,1,input-file-1,1
-0,12,4,1,input-file-1
-0,12,4,1,input-file-1,1
-0,12,1,1,input-file-1
-0,12,1,1,input-file-1,1
-0,12,1,1,input-file-1
-0,12,1,1,input-file-1,1
-0,12,1,1,input-file-1
-0,12,1,1,input-file-1,1
-0,12,1,1,input-file-1
-0,12,1,1,input-file-1,1
-0,12,1,1,input-file-1
-0,12,1,1,input-file-1,1
-0,12,1,4,input-file-1
-0,12,1,4,input-file-1,1
-0,12,1,4,input-file-1
-0,12,1,4,input-file-1,1
-0,12,1,4,input-file-1
-0,12,1,4,input-file-1,1
-0,12,1,4,input-file-1
-0,12,1,4,input-file-1,1
-0,12,1,4,input-file-1
-0,12,1,4,input-file-1,1
-0,12,1,4,input-file-1
-0,12,1,4,input-file-1,1
-0,12,1,4,input-file-1
-0,12,1,4,input-file-1,1
-0,12,1,4,input-file-1
-0,12,1,4,input-file-1,1
-0,12,1,4,input-file-1
-0,12,1,4,input-file-1,1
-0,12,1,4,input-file-1
-0,12,1,4,input-file-1,1
-1,50,2,3,From node 3 to node 2
-1,50,2,3,From node 3 to node 2 
-1,50,2,3,From node 3 to node 2 
-1,50,2,3,From node 3 to node 2 
-1,50,2,3,From node 3 to node 2 
-1,50,4,3,From node 3 to node 4 
-1,50,4,3,From node 3 to node 4 
-1,50,4,3,From node 3 to node 4 
-1,50,4,3,From node 3 to node 4 
-1,50,5,3,From node 3 to node 5 
+1,50,5,1,From node 1 to node 5 
+1,50,3,1,From node 1 to node 3 
+1,50,5,1,From node 1 to node 5 
+1,50,2,1,From node 1 to node 2 
+1,50,3,1,From node 1 to node 3 
+1,50,3,1,From node 1 to node 3 
+1,50,4,1,From node 1 to node 4 
+1,50,3,1,From node 1 to node 3 
+1,50,3,1,From node 1 to node 3 
+1,50,2,1,From node 1 to node 2 
 1,50,5,1,From node 1 to node 5 
 1,50,4,1,From node 1 to node 4 
 1,50,4,1,From node 1 to node 4 
+1,50,3,1,From node 1 to node 3 
+1,50,2,1,From node 1 to node 2 
 1,50,4,1,From node 1 to node 4 
+1,50,4,1,From node 1 to node 4 
+1,50,2,1,From node 1 to node 2 
+1,50,5,1,From node 1 to node 5 

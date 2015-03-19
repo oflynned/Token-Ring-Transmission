@@ -3,15 +3,15 @@ import java.util.Random;
 
 public class TokenFrame
 {
-	private String this_node_name; /* name of Node for logging */
-	private Integer access_control; /* AC: 0=token, 1=data */
-	private Integer data_size; /* data size in multiples of 50 */
-	private Integer dest; /* destination node for frame */
-	private Integer src; /* source node of frame */
-	private String data; /* data string of frame */
-	private Integer frame_status; /* frame status: */
+	private String this_node_name; //name of node for logging 
+	private Integer access_control; //AC: 0=token; 1=data 
+	private Integer data_size; //data size in multiples of 50 
+	private Integer dest; //destination node for frame 
+	private Integer src; //source node of frame 
+	private String data; //data string of frame 
+	private Integer frame_status; //frame status
 
-	/* access methods */
+	//access methods
 	public Integer access_control() {return this.access_control;}
 	public Integer data_size(){return this.data_size;}
 	public Integer dest(){return this.dest;}
@@ -19,7 +19,7 @@ public class TokenFrame
 	public String data(){return this.data;}
 	public Integer frame_status(){return this.frame_status;}
 
-	/* access methods for setting variables */
+	//var access methods
 	public void set_access_control(int ac) {this.access_control= new Integer(ac);}
 	public void set_dest(int da){this.dest=new Integer(da);}
 	public void set_src(int sa){this.src=new Integer(sa);}
@@ -27,17 +27,19 @@ public class TokenFrame
 	
 	public void set_frame_status() {
 		//set random frame status to drop packets
-		/*Random rand = new Random();
-		rand.nextInt(2);
-		if (rand.nextInt() == 0){
+		//orphaned frame possibility
+		Random rand = new Random();
+		int ac = rand.nextInt(2);
+		
+		if (ac == 0){
 			frame_status = 0;
 		}
-		else if (rand.nextInt() == 1){
+		else if (ac == 1){
 			frame_status = 1;
-		}*/
+		}
 		
 		//set frame to always good
-		frame_status = 1;
+		//frame_status = 1;
 	}
 
 	public void set_data_size()
@@ -57,7 +59,7 @@ public class TokenFrame
 		else return 0;
 	}
 
-	/* method for populating data from input string */
+	// method for populating data from input string
 	public void from_input(String input)
 	{
 		System.out.println(this.this_node_name+": Populating TokenFrame from input");
@@ -79,10 +81,10 @@ public class TokenFrame
 		}
 	}
 
-	/* method for populating data from a received frame */
+	//method for populating data from a received frame 
 	public void from_existing(String input)
 	{
-		System.out.println(this.this_node_name+": Populating TokenFrame from incoming Frame");
+		System.out.println(this.this_node_name+": Populating token frame from incoming frame");
 		System.out.println(this.this_node_name+": FRAME: "+input);
 		log_frame(this.this_node_name, input);
 		try {
@@ -101,7 +103,7 @@ public class TokenFrame
 		}
 	}
 	
-	/* method for logging each frame received to a file */
+	//frame logging for debugging
 	void log_frame(String node_name, String frame)
 	{
 		try
@@ -117,7 +119,7 @@ public class TokenFrame
 		}
 	}
 	
-	/* method for creating a string from the object data */
+	//method for creating a string from the object data
 	public String print()
 	{
 		return this.access_control.toString()+","
@@ -127,13 +129,13 @@ public class TokenFrame
 			+this.data;
 	}
 
-	/* method for printing that includes a newline */
+	//newline printing
 	public String println()
 	{
 		return print()+"\n";
 	}
 
-	/* object constructor for a Token Frame */
+	//object constructor for a token ring frame
 	TokenFrame(String node_name)
 	{
 		this.this_node_name = node_name;

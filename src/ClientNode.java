@@ -21,10 +21,9 @@ public class ClientNode extends Thread
 	private Integer this_node_num; 
 	//name of node for exceptions
 	private String node_name; 
-	
-	private String input;
+		
 	//string to build the input-file-{num} name
-	private String temp_f_input;
+	private String f_input;
 	//string to build the output-file-{num} name
 	private String f_output; 
 	
@@ -33,11 +32,9 @@ public class ClientNode extends Thread
 	//read in files
 	private BufferedReader infile_read;
 	
-	//mnode constructor
+	//node constructor
 	ClientNode(ServerSocket s_temp, int p_temp, boolean flag) throws IOException
 	{
-		tokenRing.model.addElement("huehuehue");
-		
 		// initialize client stuff
 		this.this_node_num = new Integer(s_temp.getLocalPort()-GlobalDataStore.netport_base);
 		this.node_name = new String("Node-");
@@ -50,59 +47,7 @@ public class ClientNode extends Thread
 		//do we have the token?
 		this.flag = flag; 
 		
-		//build file for transmission
-		//access control, size, dest, source, data
-		//builds input + node number
-		input = GlobalDataStore.infile_name + this.this_node_num.toString();
-		boolean same = false;
-		Integer dest = randomNode.nextInt(5) +1;
-		if (dest == this_node_num){
-			same = true;
-			while(same){
-				dest = randomNode.nextInt(5) +1;
-				if(dest != this_node_num){
-					same = false;
-				}
-			}
-		}
-		
-		System.out.println("src: " + this_node_num);
-		System.out.println("dest: " + dest);
-		
-		temp_f_input = (
-				"0" + "," + //access control - int
-				input.length() + "," + //string length - int
-				dest + "," + //destination node - int
-				this_node_num + "," +//source node - int
-				input + "," + //data string - string
-				"1" //frame status - int
-				);
-							
-				
-		BufferedWriter writer = null;
-		/* create txt file to be read in from node to another node */
-		try
-		{
-		    writer = new BufferedWriter(new FileWriter("f_input.txt"));
-		    writer.write(temp_f_input);
-
-		}
-		catch ( IOException e)
-		{
-			//
-		}
-		finally
-		{
-		    try
-		    {
-		        if ( writer != null)
-		        writer.close( );
-		    }
-		    catch ( IOException e)
-		    {
-		    	System.err.println("Couldn't write to txt");
-		    }
-		}
+		f_input = GlobalDataStore.infile_name + this.this_node_num.toString();	
 		f_output = GlobalDataStore.outfile_name + this.this_node_num.toString();
 
 		//build transmit socket for node
@@ -114,14 +59,17 @@ public class ClientNode extends Thread
 		catch(UnknownHostException host)
 		//unable to find host?
 		{
-			System.err.println(node_name+": client node: Unkown Host used for client Socket.");
+			System.err.println(node_name+": client node: Unknown Host used for client Socket.");
 		}
 		catch(IOException io)
 		//io error?
 		{
 			System.err.println(node_name+": client node: IO error, client Socket.");
 		}
-
+		
+		//generate frame
+		generate_frames(f_input, p_temp);
+		
 		try
 		{
 			//input file for reading in
@@ -182,7 +130,7 @@ public class ClientNode extends Thread
 		//return to transmit state if in listen state and have the right to transmit
 		if (this.flag)
 		{
-			System.out.println(node_name+": We Still have the Token!");
+			System.out.println(node_name+": We still have the token!");
 			transmit_state(node_name);
 			return;
 		}
@@ -204,7 +152,7 @@ public class ClientNode extends Thread
 			if(data != null) 
 			//process data if not null
 			{
-				System.out.println(node_name+": Intercepted Packet...");
+				System.out.println(node_name+": Intercepted packet...");
 				//create token frame from incoming data
 				frame.from_existing(data);
 				
@@ -251,17 +199,18 @@ public class ClientNode extends Thread
 								 * orphaned frame; right now we ignore this
 								 * case
 								 */
-								/*
-								System.out.println(node_name+": listen: reTx, when we have Token");
+								System.out.println(node_name+": orphaned frame");
+								
 								if (this.flag)
 								{
 									send_frame(node_name, frame);
 								}
-								*/
+								
 							}
 						}
 						else {
 							//pass if the source if not us
+							System.out.println("pass sauce pls");
 							send_frame(node_name, frame);
 						}
 					}
@@ -378,7 +327,7 @@ public class ClientNode extends Thread
 		try
 		{
 			//open buffer for printing frame to output file
-			PrintWriter outfile = new PrintWriter(new FileWriter(this.f_output, true));
+			PrintWriter outfile = new PrintWriter(new FileWriter("f_output.txt", true));
 			
 			//print to line
 			outfile.println(frame.print());
@@ -431,8 +380,9 @@ public class ClientNode extends Thread
 	void generate_frames(String str, int count) throws IOException
 	{
 		//if we're not the last frame to be created, we call ourself
-		if (count >= 0) generate_frames(str, count-1);
-		
+		if (count >= 0) {
+			generate_frames(str, count-1);
+		}
 		//create frame
 		TokenFrame frame = new TokenFrame(node_name);
 		
@@ -461,7 +411,7 @@ public class ClientNode extends Thread
 		frame.set_src(this.this_node_num);
 
 		//save each frame to file
-		PrintWriter infile_write = new PrintWriter(new FileWriter("f_input_out.txt", true));
+		PrintWriter infile_write = new PrintWriter(new FileWriter("f_input.txt", true));
 		infile_write.println(frame.print()); 
 		infile_write.close(); 
 	}

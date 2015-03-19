@@ -114,15 +114,15 @@ public class TokenRing extends JFrame
 	
 	public static void main(String[] args) throws Exception
 	{
-		EventQueue.invokeLater(new Runnable(){
+		/*EventQueue.invokeLater(new Runnable(){
 			@Override
 			public void run(){
 				TokenRing ex = new TokenRing();
 				ex.setVisible(true);
 			}
-		});
+		});*/
 		
-		//init();
+		init();
 	}
 
 	public static void init() throws Exception{

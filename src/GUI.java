@@ -14,9 +14,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
 public class GUI extends JFrame {
-	/**
-	 * The text area which is used for displaying logging information.
-	 */
 	private JTextArea textArea;
 
 	private JButton buttonStart = new JButton("Start");

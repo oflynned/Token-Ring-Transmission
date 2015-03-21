@@ -19,7 +19,7 @@ import javax.swing.text.Document;
 
 public class TokenRing
 {		
-
+	public static boolean done = false;
 	public static ServerSocket s1;
 	public static ServerSocket s2;
 	public static ServerSocket s3;
@@ -32,6 +32,7 @@ public class TokenRing
 	public static ClientNode node5; 
 
 	public static void init(){
+		
 		try{
 			//create server sockets for each node 
 			s1 = new ServerSocket(GlobalDataStore.netport_base+1);
@@ -52,13 +53,12 @@ public class TokenRing
 			node1 = new ClientNode(s1, GlobalDataStore.netport_base+2, true);
 	
 			while(node1.isAlive()){
-			
+				
 			}
 			node2.exit();
 			node3.exit();
 			node4.exit();
 			node5.exit();
-			
 		}
 		catch(Exception e){
 			e.printStackTrace();

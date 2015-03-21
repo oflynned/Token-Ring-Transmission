@@ -1,1 +1,1 @@
-1,50,4,1,From node 1 to node 4 
+1,50,3,1,From node 1 to node 3 

@@ -132,7 +132,7 @@ public class ClientNode extends Thread
 			transmit_state(node_name);
 			return;
 		}
-
+		
 		System.out.println(node_name+": Starting listening state...");
 		Socket conn = null;
 		String data = null;
@@ -200,14 +200,13 @@ public class ClientNode extends Thread
 								 * orphaned frame; ignore this frame and reset
 								 * if this state is true.
 								 */
-								System.out.println("");
+								System.out.print("\n");
 								System.out.println(node_name+": orphaned frame!\n");
 								
 								if (this.flag)
-								{
+								{									
 									send_frame(node_name, frame);
 								}
-								
 							}
 						}
 						else {
@@ -246,7 +245,7 @@ public class ClientNode extends Thread
 		//create token for frame
 		TokenFrame frame = new TokenFrame(node_name);
 		Integer tht = new Integer(0);
-		System.out.println(node_name+": transmit");
+		System.out.println(node_name+": transmitting");
 		try
 		{
 			if (this.infile_read.ready())
@@ -278,11 +277,12 @@ public class ClientNode extends Thread
 				//release token to neighbour and set listen state
 				pass_token(node_name, frame);
 				listen_state(node_name);
+				
 			}
 		}
 		catch (IOException io)
 		{
-			System.err.println(node_name+": transmit: infile_read, IO Error, Unknown");
+			System.err.println(node_name+": transmission: infile_read, IO Error");
 		}
 	}
 	
@@ -294,7 +294,7 @@ public class ClientNode extends Thread
 			this.flag = false;
 		}
 		
-		System.out.println(node_name+": send: trying to send frame");
+		System.out.println(node_name+": transmission: trying to send frame");
 		try
 		{
 			//write frames received
@@ -304,9 +304,9 @@ public class ClientNode extends Thread
 		}
 		catch(IOException io)
 		{
-			System.err.println(node_name+": send: IO Error, DataOutputStream");
+			System.err.println(node_name+": sending: IO Error, DataOutputStream");
 		}
-		System.out.println(node_name+": send: frame sent");
+		System.out.println(node_name+": sending: frame sent");
 	}
 	
 	void pass_token(String node_name, TokenFrame frame)
@@ -326,7 +326,7 @@ public class ClientNode extends Thread
 	
 	void save_frame_to_output(String node_name, TokenFrame frame)
 	{
-		System.out.println(node_name+": saving frame to output");
+		System.out.println(node_name+": data: saving frame to output");
 		try
 		{
 			
@@ -341,7 +341,7 @@ public class ClientNode extends Thread
 		}
 		catch (IOException io)
 		{
-			System.err.println("save frame to file: IO error");
+			System.err.println("saving frame to file: IO error");
 		}
 		System.out.println(node_name+": saved frame to output");
 	}
@@ -363,9 +363,11 @@ public class ClientNode extends Thread
 			if (current_line.length() != 0) frame.from_input(current_line);
 
 			//check the source of the frame
-			if (frame.src().equals(this.this_node_num))
+			int source = frame.src();
+			if (source == this.this_node_num)
 			{
-				System.out.println(node_name+": send frame token");
+				System.out.println("");
+				System.out.println(node_name+": data: sending frame token\n");
 				send_frame(node_name, frame);	
 			}
 		}
@@ -405,7 +407,6 @@ public class ClientNode extends Thread
 				redo = false;
 			}
 		}
-		//Integer dest = 5;
 
 		//set string
 		frame.set_data(

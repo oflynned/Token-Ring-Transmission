@@ -5,8 +5,8 @@ public class GlobalDataStore
 {
 	//random port
 	static Random random = new Random();
-	//public static int netport_base = random.nextInt(10000)+1;
-	public static int netport_base = 5485;
+	public static int netport_base = random.nextInt(10000)+1;
+	//public static int netport_base = 5485;
 	
 	//input file name
 	public static String infile_name = new String("input-file-");

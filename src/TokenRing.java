@@ -17,10 +17,8 @@ import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
-public class TokenRing extends JFrame
-{
-	public JList list;
-	public DefaultListModel model;		
+public class TokenRing
+{		
 
 	public static ServerSocket s1;
 	public static ServerSocket s2;
@@ -31,149 +29,7 @@ public class TokenRing extends JFrame
 	public static ClientNode node2;
 	public static ClientNode node3;
 	public static ClientNode node4;
-	public static ClientNode node5;
-	
-	public TokenRing(){
-		initUI();
-	}
-	
-	private void initUI() {
-
-        Container pane = getContentPane();
-        GroupLayout gl = new GroupLayout(pane);
-        pane.setLayout(gl);   
-
-        model = new DefaultListModel<CharSequence>();
-        list = new JList<CharSequence>(model);
-        list.setMinimumSize(new Dimension(500, 300));
-        list.setBorder(BorderFactory.createEtchedBorder());
-
-        JButton startButton = new JButton("Start");
-        startButton.addActionListener(new startAction());
-        
-        JButton quitButton = new JButton ("Quit");
-        quitButton.addActionListener(new quitAction());
-        
-        JButton resetButton = new JButton ("Reset");
-        resetButton.addActionListener(new resetAction());
-
-        gl.setAutoCreateContainerGaps(true);
-        
-        gl.setHorizontalGroup(gl.createSequentialGroup()
-                .addComponent(startButton)
-                .addComponent(resetButton)
-                .addComponent(quitButton)
-                .addGap(20)
-                .addComponent(list)
-        );
-
-        gl.setVerticalGroup(gl.createParallelGroup()
-                .addComponent(startButton)
-                .addComponent(resetButton)
-                .addComponent(quitButton)
-                .addComponent(list)
-        );
-        
-        pack();
-
-        setTitle("CS3D3 Project 2 - Token Ring");
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-    
-	public class quitAction extends AbstractAction{
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			
-			System.exit(0);
-		}
-	}
-	
-	public class resetAction extends AbstractAction{
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			model.clear();
-		}
-	}
-	
-    public class startAction extends AbstractAction {
-        
-        @Override
-        public void actionPerformed(ActionEvent arg0){
-            backgroundInit();
-        }
-    }   
-    
-    //multithreading for concurrent GUI behaviour with init()
-    public Void backgroundInit(){
-    	SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
-
-			@Override
-			protected Void doInBackground() throws Exception {
-
-	            if (!model.isEmpty()) {
-	                model.clear();
-	            }
-	            
-	            model.addElement("-----------------");
-	            
-				
-				init();
-				return null;
-			}
-			
-			//safe end update for GUI
-			@Override
-			protected void done() {
-
-				try {
-					if(doInBackground()){
-					model.addElement("thread done!");
-					model.addElement("-----------------");
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			
-			//safe update during GUI thread
-			@Override
-			protected void process(){
-				
-			}
-			
-    	};
-    	worker.execute();
-		return null;
-    }
-    
-    public void threadSleep(int milliseconds)
-    {
-        try
-        {
-            Thread.sleep(milliseconds);
-        }
-        catch(InterruptedException e)
-        {
-            System.out.println("Unexpected interrupt");
-            System.exit(0);
-        }
-    }
-	
-	public static void main(String[] args) throws Exception
-	{
-		EventQueue.invokeLater(new Runnable(){
-			@Override
-			public void run(){
-				TokenRing ex = new TokenRing();
-				ex.setVisible(true);
-			}
-		});
-		
-		init();
-	}
+	public static ClientNode node5; 
 
 	public static void init(){
 		try{

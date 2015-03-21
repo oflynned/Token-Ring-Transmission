@@ -33,8 +33,6 @@ public class ClientNode extends Thread
 		//initialiser for GUI console parsing
 		TokenRing tokenRing = new TokenRing();
 		
-		tokenRing.model.addElement("test");
-		
 		// initialize client stuff
 		this.this_node_num = new Integer(s_temp.getLocalPort()-GlobalDataStore.netport_base);
 		this.node_name = new String("Node-");

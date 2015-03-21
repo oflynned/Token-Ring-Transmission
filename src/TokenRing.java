@@ -24,7 +24,7 @@ public class TokenRing extends JFrame
 
 	public static ServerSocket s1;
 	public static ServerSocket s2;
-	public static  ServerSocket s3;
+	public static ServerSocket s3;
 	public static ServerSocket s4;
 	public static ServerSocket s5;
 	public static ClientNode node1;
@@ -85,6 +85,7 @@ public class TokenRing extends JFrame
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			
 			System.exit(0);
 		}
 	}
@@ -101,26 +102,26 @@ public class TokenRing extends JFrame
         
         @Override
         public void actionPerformed(ActionEvent arg0){
-        	
             backgroundInit();
         }
     }   
     
     //multithreading for concurrent GUI behaviour with init()
     public Void backgroundInit(){
-    	SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>(){
+    	SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
 
 			@Override
-			protected Boolean doInBackground() throws Exception {
+			protected Void doInBackground() throws Exception {
 
 	            if (!model.isEmpty()) {
 	                model.clear();
 	            }
 	            
 	            model.addElement("-----------------");
+	            
 				
-				//init();
-				return true;
+				init();
+				return null;
 			}
 			
 			//safe end update for GUI
@@ -138,6 +139,7 @@ public class TokenRing extends JFrame
 			}
 			
 			//safe update during GUI thread
+			@Override
 			protected void process(){
 				
 			}
@@ -196,16 +198,16 @@ public class TokenRing extends JFrame
 			while(node1.isAlive()){
 			
 			}
-
 			node2.exit();
 			node3.exit();
 			node4.exit();
 			node5.exit();
+			
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
-	}
+	}	
 }
 	
 

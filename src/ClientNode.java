@@ -413,7 +413,9 @@ public class ClientNode extends Thread
 			"From node "
 			+this.this_node_num.toString()
 			+" to node "
-			+dest.toString()+" ");
+			+dest.toString()
+			+" plus data for more than one packet of information to be sent."
+			+" ");
 
 		//generate token or data frame
 		frame.set_access_control(1);

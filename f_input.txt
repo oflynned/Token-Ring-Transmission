@@ -1,1 +1,1 @@
-1,50,3,1,From node 1 to node 3 
+1,96,2,1,From node 1 to node 2 plus data for more than one packet of information to be sent. 

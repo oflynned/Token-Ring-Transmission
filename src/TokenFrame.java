@@ -38,24 +38,24 @@ public class TokenFrame
 			frame_status = 1;
 		}
 		
-		//set frame to always good
-		//frame_status = 1;
+		//set frame status to fixed
+		//frame_status = 0;
 	}
 
 	public void set_data_size()
 	{
 		if (this.data.length() != 0)
 		{
-				int ret = multiple_of_fifty(this.data.length(), 50);
+				int ret = multiple_of_limit(this.data.length(), GlobalDataStore.byte_limit);
 				this.data_size = new Integer(ret);
 		}
 	}
-	private int multiple_of_fifty(int num, int check)
+	private int multiple_of_limit(int num, int check)
 	{
 		if (num < check)
 			return check;
 		else if ((num%check) != 0)
-			return multiple_of_fifty(num, check+50);
+			return multiple_of_limit(num, check+GlobalDataStore.byte_limit);
 		else return 0;
 	}
 

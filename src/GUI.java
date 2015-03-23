@@ -4,7 +4,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
-import java.util.Date;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +14,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
 public class GUI extends JFrame {
+	private static final long serialVersionUID = 1L;
+	TokenRing tokenRing = new TokenRing();
 	private JTextArea textArea;
 
 	private JButton buttonStart = new JButton("Start");
@@ -66,9 +68,10 @@ public class GUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				try {
+					Random random = new Random();
+					GlobalDataStore.netport_base = random.nextInt(10000)+1;
 					tokenRingThread();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -106,14 +109,7 @@ public class GUI extends JFrame {
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while (true) {
-					TokenRing.init();
-					try {
-						Thread.sleep(1);
-					} catch (InterruptedException ex) {
-						ex.printStackTrace();
-					}
-				}
+				tokenRing.init();
 			}
 		});
 		thread.start();

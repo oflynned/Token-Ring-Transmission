@@ -45,8 +45,8 @@ public class ClientNode extends Thread
 		//do we have the token?
 		this.flag = flag; 
 		
-		f_input = GlobalDataStore.infile_name + this.this_node_num.toString();	
-		f_output = GlobalDataStore.outfile_name + this.this_node_num.toString();
+		f_input = (GlobalDataStore.infile_name + this.this_node_num.toString());	
+		f_output = (GlobalDataStore.outfile_name + this.this_node_num.toString());
 		
 		//build transmit socket for node
 		try 
@@ -136,7 +136,6 @@ public class ClientNode extends Thread
 		System.out.println(node_name+": Starting listening state...");
 		Socket conn = null;
 		String data = null;
-		Random rand = new Random();
 		TokenFrame frame = new TokenFrame(node_name);
 		
 		try
@@ -331,7 +330,7 @@ public class ClientNode extends Thread
 		{
 			
 			//open buffer for printing frame to output file
-			PrintWriter outfile = new PrintWriter(new FileWriter("f_output.txt", true));
+			PrintWriter outfile = new PrintWriter(new FileWriter("f_output.txt", false));
 			
 			//print to line
 			outfile.println(frame.print());
@@ -394,6 +393,8 @@ public class ClientNode extends Thread
 		frame.set_data("");
 
 		PrintWriter infile_clear = new PrintWriter(new FileWriter("f_input.txt", false));
+		infile_clear.println(frame.print()); 
+		infile_clear.close();
 		
 		//send frame to random node
 		boolean redo = false;
@@ -401,7 +402,7 @@ public class ClientNode extends Thread
 		if(dest==1){
 			redo = true;
 		}
-		while(dest == 1){
+		while(redo){
 			dest = rand.nextInt(5)+1;
 			if(dest!=1){
 				redo = false;
@@ -414,7 +415,7 @@ public class ClientNode extends Thread
 			+this.this_node_num.toString()
 			+" to node "
 			+dest.toString()
-			+" plus data for more than one packet of information to be sent."
+			//+" plus data for more than one packet of information to be sent."
 			+" ");
 
 		//generate token or data frame
@@ -433,5 +434,13 @@ public class ClientNode extends Thread
 		PrintWriter infile_write = new PrintWriter(new FileWriter("f_input.txt", false));
 		infile_write.println(frame.print()); 
 		infile_write.close(); 
+	}
+	
+	void dropNode(){
+		
+	}
+	
+	void reAssignRing(){
+		
 	}
 }

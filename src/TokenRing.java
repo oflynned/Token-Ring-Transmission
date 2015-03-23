@@ -1,37 +1,20 @@
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.List;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.net.*;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.util.Locale;
-import java.util.concurrent.ExecutionException;
-
-import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
 
 public class TokenRing
 {		
-	public static boolean done = false;
-	public static ServerSocket s1;
-	public static ServerSocket s2;
-	public static ServerSocket s3;
-	public static ServerSocket s4;
-	public static ServerSocket s5;
-	public static ClientNode node1;
-	public static ClientNode node2;
-	public static ClientNode node3;
-	public static ClientNode node4;
-	public static ClientNode node5; 
-
-	public static void init(){
+	
+	public ServerSocket s1;
+	public ServerSocket s2;
+	public ServerSocket s3;
+	public ServerSocket s4;
+	public ServerSocket s5;
+	public ClientNode node1;
+	public ClientNode node2;
+	public ClientNode node3;
+	public ClientNode node4;
+	public ClientNode node5;
+	
+	public void init(){
 		
 		try{
 			//create server sockets for each node 
@@ -52,9 +35,17 @@ public class TokenRing
 			//client node will be the initial holder of the token 
 			node1 = new ClientNode(s1, GlobalDataStore.netport_base+2, true);
 	
-			while(node1.isAlive()){
+			/*while(node1.isAlive()){
 				
-			}
+			}*/
+			
+			/*while(done()){
+				
+			}*/
+			
+			Thread.sleep(10);
+			
+			node1.exit();
 			node2.exit();
 			node3.exit();
 			node4.exit();
@@ -63,7 +54,12 @@ public class TokenRing
 		catch(Exception e){
 			e.printStackTrace();
 		}
-	}	
+	}
+	
+	public void restart(){
+		System.out.println("Restarting ... generating another frame");
+		
+	}
 }
 	
 

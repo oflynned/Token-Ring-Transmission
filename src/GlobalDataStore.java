@@ -17,6 +17,6 @@ public class GlobalDataStore
 	//THT limit
 	public static Integer tht_byte_count = new Integer(400);
 	//byte limit
-	public static Integer byte_limit = 16;
+	public static Integer byte_limit = 8;
 }
 

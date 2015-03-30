@@ -27,12 +27,12 @@ public class ClientNode extends Thread
 	//read in files
 	private BufferedReader infile_read;
 	
+	TokenRing tokenRing = new TokenRing();
+			
+	
 	//node constructor
 	ClientNode(ServerSocket s_temp, int p_temp, boolean flag) throws IOException
 	{
-		//initialiser for GUI console parsing
-		TokenRing tokenRing = new TokenRing();
-		
 		// initialize client stuff
 		this.this_node_num = new Integer(s_temp.getLocalPort()-GlobalDataStore.netport_base);
 		this.node_name = new String("Node-");
@@ -399,7 +399,7 @@ public class ClientNode extends Thread
 		//send frame to random node
 		boolean redo = false;
 		Integer dest = rand.nextInt(5)+1;
-		if(dest==1){
+		/*if(dest==1){
 			redo = true;
 		}
 		while(redo){
@@ -407,7 +407,7 @@ public class ClientNode extends Thread
 			if(dest!=1){
 				redo = false;
 			}
-		}
+		}*/
 
 		//set string
 		frame.set_data(
@@ -437,10 +437,37 @@ public class ClientNode extends Thread
 	}
 	
 	void dropNode(){
+		Random random = new Random();
+		int node = random.nextInt(5)+1;
 		
+		//drop a random node
+		switch(node){
+		case 1:
+			tokenRing.node1.exit();
+			break;
+		case 2:
+			tokenRing.node2.exit();
+			break;
+		case 3:
+			tokenRing.node3.exit();
+			break;
+		case 4:
+			tokenRing.node4.exit();
+			break;
+		case 5:
+			tokenRing.node5.exit();
+			break;
+		}
 	}
 	
-	void reAssignRing(){
-		
+	void reAssignRing() throws IOException{
+		if(!tokenRing.node1.isAlive()){
+			tokenRing.node1 = new ClientNode(tokenRing.s1, GlobalDataStore.netport_base+1, false);
+			
+			Random random = new Random();
+			int node = random.nextInt(5)+1;
+			String controllerX = "s" + Integer.toString(node); //s1,s2,s3,s4,s5 randomly chosen + concatenated
+			ClientNode nodeX = new ClientNode(controllerX, GlobalDataStore.netport_base+node, true); //assign to a node
+		}
 	}
 }
